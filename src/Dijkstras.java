@@ -27,9 +27,14 @@ public class Dijkstras {
     	// Print Graph
     	DirectedGraph.printGraph();
     	
+//    	Node x = new Node(1, 14);
+//    	x.printNode();
+    	
+    	
     	Dijkstra(1,2);
 	}
 	public static void Dijkstra(int g, int s) {
+		// get inveriant of s = 0
 		//Initialize Q of V with pi(v) <- infinity for each node v in V
 		
 		//S <- {}, pi(s) <- 0

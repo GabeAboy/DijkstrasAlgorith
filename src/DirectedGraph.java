@@ -1,8 +1,9 @@
 import java.util.LinkedList;
 
 public class DirectedGraph {
-	int vertices;
-	LinkedList<Integer> adjacencyList[]; 
+	// Size
+	private int vertices;
+	private LinkedList<Node> adjacencyList[]; 
 	DirectedGraph(int vertices){
 		this.vertices = vertices;
 		adjacencyList = new LinkedList[vertices]; 
@@ -13,21 +14,24 @@ public class DirectedGraph {
         } 
 	}
 	  // Adds an edge to an undirected graph 
-    void addEdge( int vertices, int node, int weight) 
+    public void addEdge( int vertices, int node, int weight) 
     { 
     	 // Since graph is directed, every node vertices points to a node
-    	// TODO we need to add an object node not a int node
-        this.adjacencyList[vertices].add(node); 
+    	
+    	// After init the graph invariants are infinity
+    	Node x  = new Node(node, weight, Double.POSITIVE_INFINITY);
+        this.adjacencyList[vertices].add(x); 
       
     }
-    void printGraph() 
+    public void printGraph() 
     {        
         for(int v = 0; v < this.vertices; v++) 
         { 
             System.out.println("Node "+ v +" connects to"); 
             System.out.print("Linked list nodes, Head"); 
-            for(Integer node: this.adjacencyList[v]){ 
-                System.out.print(" -> " + node); 
+            for(Node node: this.adjacencyList[v]){ 
+                System.out.println(" -> "  );
+                node.printNode();
             } 
             System.out.println("\n"); 
         } 
