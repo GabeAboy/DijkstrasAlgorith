@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -24,18 +25,11 @@ public class Dijkstras {
     	DirectedGraph.addEdge(7, 5, 20);
     	DirectedGraph.addEdge(7, 8, 44);
 
-		Comparator<Node> LectureStartTimeComparator = new Comparator<Node>() {
-            public int compare(Node one, Node two) {
-                return one.getShortestPath() - two.getShortestPath();
-            }
-        };
-        PriorityQueue<Node> LecturePriorityQueue = new PriorityQueue<>(LectureStartTimeComparator);     
+		DirectedGraph.printHashMap();
 		
-        for(int i = 0; i<DirectedGraph.getSize(); i++) {
-        	for( Node x : DirectedGraph.adjacencyList[i]) {
-        		x.printNode();
-        	}
-        }
+		DirectedGraph.getInvarient(2);
+		DirectedGraph.setInvarient(2, 14);
+		DirectedGraph.getInvarient(2);
     	
     	// Print Graph
 //    	DirectedGraph.printGraph();
@@ -44,25 +38,44 @@ public class Dijkstras {
 //    	x.printNode();
     	
     	
-    	Dijkstra(1,2);
+    	Dijkstra(DirectedGraph, 1);
 	}
-	public static void Dijkstra(int g, int s) {
+	public static void Dijkstra(DirectedGraph G, int s) {
 
 		// get invariant of s = 0
 		
 		//Initialize Q of V with pi(v) <- infinity for each node v in V
+		Comparator<Node> LectureStartTimeComparator = new Comparator<Node>() {
+            public int compare(Node one, Node two) {
+                return one.getShortestPath() - two.getShortestPath();
+            }
+        };
+        PriorityQueue<Node> LocationNodePriorityQueue = new PriorityQueue<>(LectureStartTimeComparator);     
 		
-		//S <- {}, pi(s) <- 0
-		//while (Q is not empty){
+        for(int i = 0; i<G.getSize(); i++) {
+        	for( Node x : G.adjacencyList[i]) {
+//        		x.printNode();
+        		LocationNodePriorityQueue.add(x);
+        		
+        	}
+        }
+		//S <- {},
+        ArrayList<Node> Visited = new ArrayList<Node>();
+        //pi(s) <- 0
+		while (!LocationNodePriorityQueue.isEmpty()){
 			//v = ExtractMin(Q)
+			Node NodeWithMinInvarient = LocationNodePriorityQueue.poll();
 			//Add v to S
+			Visited.add(NodeWithMinInvarient);
+			
 			// for each edge e=(v,w) such that w does not exist in S{
+//			for( Node n : )
 				// if(pi(v) + Ie < pi(w)){
 					//pi(w)=pi(v)+Ie
 					//ChangeKey(Q,w,pi(w))
 				//}
 			//}
-		//}
+		}
 	}
 	
 }

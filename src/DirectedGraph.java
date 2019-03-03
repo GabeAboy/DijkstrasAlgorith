@@ -1,13 +1,13 @@
-import java.util.LinkedList;
-
+import java.util.*;
 public class DirectedGraph {
 	// Size
 	private int vertices;
 	LinkedList<Node> adjacencyList[]; 
+	HashMap nodeInfo;
 	DirectedGraph(int vertices){
 		this.vertices = vertices;
-		adjacencyList = new LinkedList[vertices]; 
-        
+		adjacencyList = new LinkedList[vertices];
+		nodeInfo = new HashMap();
         // Create a new list number of vertices
         for(int i = 0; i < vertices ; i++){ 
         	adjacencyList[i] = new LinkedList<>(); 
@@ -20,11 +20,26 @@ public class DirectedGraph {
     	
     	// After init the graph invariants are infinity
     	Node x  = new Node(node, weight, Integer.MAX_VALUE);
-        this.adjacencyList[vertices].add(x); 
+    	nodeInfo.put(vertices,Integer.MAX_VALUE);
+        nodeInfo.put(node,Integer.MAX_VALUE);
+    	this.adjacencyList[vertices].add(x); 
       
     }
     public int getSize() {
     	return this.vertices;
+    }
+    public void printHashMap() {
+    	for (Object i : this.nodeInfo.keySet()) {
+    		  System.out.println("key: " + i + " value: " + nodeInfo.get(i));
+    		}
+    }
+    public int getInvarient(int node) {
+    	
+    	System.out.println(this.nodeInfo.get(node));
+    	return 0;
+    }
+    public void setInvarient(int node, int distance) {
+    	nodeInfo.put(node,distance);
     }
     public void printGraph() 
     {        
