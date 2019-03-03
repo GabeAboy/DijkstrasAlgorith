@@ -2,11 +2,11 @@
 public class Node {
 	private int idInt;
 	private int distance;
-	private double shortestPath;
+	private int shortestPath;
 	private String predecesor;
 
 	// TODO the ID for any Node should be an optional between string and int
-	Node(int idInt, int distance, double shortestPath) {
+	Node(int idInt, int distance, int shortestPath) {
 		this.idInt = idInt;
 		this.distance = distance;
 		this.shortestPath = shortestPath;
@@ -20,10 +20,10 @@ public class Node {
 	public int getDistance() {
 		return this.distance;
 	}
-	public double getShortestPath() {
+	public int getShortestPath() {
 		return this.shortestPath;
 	}
-	public void setShortestPath(double shortestPath) {
+	public void setShortestPath(int shortestPath) {
 		this.shortestPath=shortestPath;
 	}
 	public void setPredecesor(int i) {

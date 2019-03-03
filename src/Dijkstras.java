@@ -1,3 +1,5 @@
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public class Dijkstras {
 	public static void main(String[] args) {
@@ -22,10 +24,21 @@ public class Dijkstras {
     	DirectedGraph.addEdge(7, 5, 20);
     	DirectedGraph.addEdge(7, 8, 44);
 
-
+		Comparator<Node> LectureStartTimeComparator = new Comparator<Node>() {
+            public int compare(Node one, Node two) {
+                return one.getShortestPath() - two.getShortestPath();
+            }
+        };
+        PriorityQueue<Node> LecturePriorityQueue = new PriorityQueue<>(LectureStartTimeComparator);     
+		
+        for(int i = 0; i<DirectedGraph.getSize(); i++) {
+        	for( Node x : DirectedGraph.adjacencyList[i]) {
+        		x.printNode();
+        	}
+        }
     	
     	// Print Graph
-    	DirectedGraph.printGraph();
+//    	DirectedGraph.printGraph();
     	
 //    	Node x = new Node(1, 14);
 //    	x.printNode();
@@ -34,7 +47,9 @@ public class Dijkstras {
     	Dijkstra(1,2);
 	}
 	public static void Dijkstra(int g, int s) {
-		// get inveriant of s = 0
+
+		// get invariant of s = 0
+		
 		//Initialize Q of V with pi(v) <- infinity for each node v in V
 		
 		//S <- {}, pi(s) <- 0

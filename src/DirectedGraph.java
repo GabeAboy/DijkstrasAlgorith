@@ -3,7 +3,7 @@ import java.util.LinkedList;
 public class DirectedGraph {
 	// Size
 	private int vertices;
-	private LinkedList<Node> adjacencyList[]; 
+	LinkedList<Node> adjacencyList[]; 
 	DirectedGraph(int vertices){
 		this.vertices = vertices;
 		adjacencyList = new LinkedList[vertices]; 
@@ -19,9 +19,12 @@ public class DirectedGraph {
     	 // Since graph is directed, every node vertices points to a node
     	
     	// After init the graph invariants are infinity
-    	Node x  = new Node(node, weight, Double.POSITIVE_INFINITY);
+    	Node x  = new Node(node, weight, Integer.MAX_VALUE);
         this.adjacencyList[vertices].add(x); 
       
+    }
+    public int getSize() {
+    	return this.vertices;
     }
     public void printGraph() 
     {        
