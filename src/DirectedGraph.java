@@ -1,9 +1,9 @@
 import java.util.LinkedList;
 
-public class Graph {
+public class DirectedGraph {
 	int vertices;
 	LinkedList<Integer> adjacencyList[]; 
-	Graph(int vertices){
+	DirectedGraph(int vertices){
 		this.vertices = vertices;
 		adjacencyList = new LinkedList[vertices]; 
         
@@ -13,11 +13,12 @@ public class Graph {
         } 
 	}
 	  // Adds an edge to an undirected graph 
-    void addEdge( int vertices, int node) 
+    void addEdge( int vertices, int node, int weight) 
     { 
-    	 // Since graph is undirected, add an edge from and forth vertices and node
+    	 // Since graph is directed, every node vertices points to a node
+    	// TODO we need to add an object node not a int node
         this.adjacencyList[vertices].add(node); 
-        this.adjacencyList[node].add(vertices); 
+      
     }
     void printGraph() 
     {        
