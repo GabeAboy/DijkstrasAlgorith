@@ -33,8 +33,15 @@ public class DirectedGraph {
     		  System.out.println("key: " + i + " value: " + nodeInfo.get(i));
     		}
     }
-    public int getInvarient(int node) {    	
-    	return (int) nodeInfo.get(node);
+    public int getInvarient(int node) {   
+    	int solution =  (int) nodeInfo.get(node);
+//    	System.out.println(solution);
+//    	System.out.println(solution==(int)Integer.MAX_VALUE);
+    	if(solution == (int)Integer.MAX_VALUE) {
+    		return 0;
+    	}
+    	return solution;
+//    	return solution==Integer.MAX_VALUE ? 0 : solution;
     }
     public void setInvarient(int node, int distance) {
     	nodeInfo.put(node,distance);

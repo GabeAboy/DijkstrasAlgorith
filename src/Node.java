@@ -36,7 +36,7 @@ public class Node {
 
 
 	public void printNode() {
-		System.out.println("Node: ID("+this.getId() + ")\tDistance(" + this.getDistance()+")");
+		System.out.println("Node: ID("+this.getId() + ") comes from("+this.getPredecesor()+") Distance(" + this.getShortestPath()+")");
 	}
 
 }
