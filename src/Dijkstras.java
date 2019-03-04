@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 public class Dijkstras {
@@ -57,59 +59,57 @@ public class Dijkstras {
         PriorityQueue<Vert> LocationNodePriorityQueue = new PriorityQueue<>(LectureStartTimeComparator);   
         
         System.out.println("Inserting to Graph");
+       
+    		Map<Integer, Vert> map = new HashMap<Integer, Vert>();
         //Initialize Priority Queue
         for(int i = 1; i<G.getSize()+1; i++) {
         	Vert n;
+        	//pi(s) <- 0
         	n = i==s ? new Vert(i,0) : new Vert(i,(int)Integer.MAX_VALUE); 
+        	map.put(n.NodeID,n);
         	LocationNodePriorityQueue.add(n);
         }
-       
-        while(!LocationNodePriorityQueue.isEmpty()) {
-        	Vert NodeWithMin = LocationNodePriorityQueue.poll();
-        	System.out.println(NodeWithMin.getid());
-        }
 		//S <- {},
-        ArrayList<Node> Visited = new ArrayList<Node>();
-        //pi(s) <- 0
+        ArrayList<Integer> Visited = new ArrayList<Integer>();
+        
         System.out.println("\n Reading From Queue");
-//		while (!LocationNodePriorityQueue.isEmpty()){
-//			//v = ExtractMin(Q)
-//			Node NodeWithMinInvarient = LocationNodePriorityQueue.poll();
-//			//Add v to S
-////			NodeWithMinInvarient.printNode();
-//			Visited.add(NodeWithMinInvarient);
-//			
-//			// for each edge e=(v,w) 
-//			for( Node n : G.adjacencyList[NodeWithMinInvarient.getId()] ) {
-//				//such that w does not exist in S{
-//				if(Visited.contains(n)) {
-//					continue;
-//				}
-//				//pi(v) + Ie < pi(w)
-//				n.printNode();
-//				int x = n.getDistance();
-//				int y =G.getInvarient(NodeWithMinInvarient.getPredecesor());
-//				for (Object i : G.nodeInfo.keySet()) {
-//					  System.out.println("key: " + i + " value: " + G.nodeInfo.get(i));
-//					}
-//				int distanceFromPredecesor = G.getInvarient(NodeWithMinInvarient.getId())
-//											+ G.getInvarient(NodeWithMinInvarient.getPredecesor());
-//				System.out.println("Distance "+ x +"plus"+y);
-//				System.out.println(distanceFromPredecesor < G.getInvarient(n.getId()));
-//				 if(distanceFromPredecesor < G.getInvarient(n.getId())){
-//					//pi(w)=pi(v)+Ie
-//					 G.setInvarient(n.getId(), distanceFromPredecesor);
-//	
-//					 //ChangeKey(Q,w,pi(w))
-//					 LocationNodePriorityQueue.remove(n);
-//					 n.setShortestPath(distanceFromPredecesor);
-//					 LocationNodePriorityQueue.add(n);
-//				}
-//			}
-//		}
+		while (!LocationNodePriorityQueue.isEmpty()){
+			//v = ExtractMin(Q)
+			Vert NodeWithMinInvarient = LocationNodePriorityQueue.poll();
+			//Add v to S
+			Visited.add(NodeWithMinInvarient.getid());
+			
+			// for each edge e=(v,w) 
+			for( Node n : G.adjacencyList[NodeWithMinInvarient.getid()] ) {
+				//such that w does not exist in S{
+				if(Visited.contains(n)) {
+					continue;
+				}
+				//pi(v) + Ie < pi(w)
+				n.printNode();
+				int x = n.getDistance();
+				int y = NodeWithMinInvarient.getInvarient();
+				for (Object i : G.nodeInfo.keySet()) {
+					  System.out.println("key: " + i + " value: " + G.nodeInfo.get(i));
+					}
+				int distanceFromPredecesor = x+y;
+				System.out.println("Distance "+ x +"plus"+y);
+				System.out.println(distanceFromPredecesor < G.getInvarient(n.getId()));
+				 if(distanceFromPredecesor < map.get(n.getId()).getInvarient()){
+
+					 LocationNodePriorityQueue.remove(map.get(n.getId()));
+					 //pi(w)=pi(v)+Ie
+					 map.get(n.getId()).setInvarient(distanceFromPredecesor);
+					 //ChangeKey(Q,w,pi(w))
+					 LocationNodePriorityQueue.add(map.get(n.getId()));
+					
+					 n.setShortestPath(distanceFromPredecesor);
+				}
+			}
+		}
 		System.out.println("Visited");
-		for(Node p : Visited) {
-			System.out.println(p.getPredecesor());
+		for(Integer p : Visited) {
+			System.out.println(p);
 		}
 	}
 	
