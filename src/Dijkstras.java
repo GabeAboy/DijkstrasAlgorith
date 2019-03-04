@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public class Dijkstras {
@@ -27,10 +28,7 @@ public class Dijkstras {
 
 		DirectedGraph.printHashMap();
 		
-		DirectedGraph.getInvarient(2);
-		DirectedGraph.setInvarient(2, 14);
-		DirectedGraph.getInvarient(2);
-    	
+
     	// Print Graph
 //    	DirectedGraph.printGraph();
     	
@@ -43,11 +41,11 @@ public class Dijkstras {
 	public static void Dijkstra(DirectedGraph G, int s) {
 
 		// get invariant of s = 0
-		
+		G.setInvarient(s, 0);
 		//Initialize Q of V with pi(v) <- infinity for each node v in V
 		Comparator<Node> LectureStartTimeComparator = new Comparator<Node>() {
             public int compare(Node one, Node two) {
-                return one.getShortestPath() - two.getShortestPath();
+                return G.getInvarient(one.getId()) - G.getInvarient(two.getId());
             }
         };
         PriorityQueue<Node> LocationNodePriorityQueue = new PriorityQueue<>(LectureStartTimeComparator);     
@@ -68,13 +66,26 @@ public class Dijkstras {
 			//Add v to S
 			Visited.add(NodeWithMinInvarient);
 			
-			// for each edge e=(v,w) such that w does not exist in S{
-//			for( Node n : )
-				// if(pi(v) + Ie < pi(w)){
+			// for each edge e=(v,w) 
+			for( Node n : G.adjacencyList[NodeWithMinInvarient.getId()] ) {
+				//such that w does not exist in S{
+				if(Visited.contains(n)) {
+					continue;
+				}
+				//pi(v) + Ie < pi(w)
+				int distanceFromPredecesor = G.getInvarient(NodeWithMinInvarient.getId())+ G.getInvarient(NodeWithMinInvarient.getPredecesor());
+				 if(distanceFromPredecesor < G.getInvarient(n.getId())){
 					//pi(w)=pi(v)+Ie
-					//ChangeKey(Q,w,pi(w))
-				//}
-			//}
+					 G.setInvarient(n.getId(), distanceFromPredecesor);
+					 //ChangeKey(Q,w,pi(w))
+					 LocationNodePriorityQueue.remove(n);
+					 n.setShortestPath(distanceFromPredecesor);
+					 LocationNodePriorityQueue.add(n);
+				}
+			}
+		}
+		for(Node p : Visited) {
+			System.out.println(p.getId());
 		}
 	}
 	

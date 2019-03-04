@@ -19,7 +19,7 @@ public class DirectedGraph {
     	 // Since graph is directed, every node vertices points to a node
     	
     	// After init the graph invariants are infinity
-    	Node x  = new Node(node, weight, Integer.MAX_VALUE);
+    	Node x  = new Node(node, weight, Integer.MAX_VALUE, vertices);
     	nodeInfo.put(vertices,Integer.MAX_VALUE);
         nodeInfo.put(node,Integer.MAX_VALUE);
     	this.adjacencyList[vertices].add(x); 
@@ -33,10 +33,8 @@ public class DirectedGraph {
     		  System.out.println("key: " + i + " value: " + nodeInfo.get(i));
     		}
     }
-    public int getInvarient(int node) {
-    	
-    	System.out.println(this.nodeInfo.get(node));
-    	return 0;
+    public int getInvarient(int node) {    	
+    	return (int) nodeInfo.get(node);
     }
     public void setInvarient(int node, int distance) {
     	nodeInfo.put(node,distance);
