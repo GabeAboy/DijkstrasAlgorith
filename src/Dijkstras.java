@@ -27,15 +27,8 @@ public class Dijkstras {
     	DirectedGraph.addEdge(6, 3, 18);
     	DirectedGraph.addEdge(7, 5, 20);
     	DirectedGraph.addEdge(7, 8, 44);
-
-//		DirectedGraph.printHashMap();
-		
-
-    	// Print Graph
-//    	DirectedGraph.printGraph();
-    	
-//    	Node x = new Node(1, 14);
-//    	x.printNode();
+    	//Using pqueue
+    	//hashmap
     	
     	
     	Dijkstra(DirectedGraph, 1);
@@ -43,13 +36,13 @@ public class Dijkstras {
 	public static void Dijkstra(DirectedGraph G, int s) {
 		 
 		// get invariant of s = 0
-		G.getInvarient(s);
-		G.setInvarient(s, 0);
-		for (Object i : G.nodeInfo.keySet()) {
-			  System.out.println("key: " + i + " value: " + G.nodeInfo.get(i));
-			}
-		G.getInvarient(s);
-		G.getInvarient(2);
+//		G.getInvarient(s);
+//		G.setInvarient(s, 0);
+//		for (Object i : G.nodeInfo.keySet()) {
+//			  System.out.println("key: " + i + " value: " + G.nodeInfo.get(i));
+//			}
+//		G.getInvarient(s);
+//		G.getInvarient(2);
 		//Initialize Q of V with pi(v) <- infinity for each node v in V
 		Comparator<Vert> LectureStartTimeComparator = new Comparator<Vert>() {
             public int compare(Vert one, Vert two) {
@@ -62,7 +55,7 @@ public class Dijkstras {
        
     		Map<Integer, Vert> map = new HashMap<Integer, Vert>();
         //Initialize Priority Queue
-        for(int i = 1; i<G.getSize()+1; i++) {
+        for(int i = 1; i<G.getSize(); i++) {
         	Vert n;
         	//pi(s) <- 0
         	n = i==s ? new Vert(i,0) : new Vert(i,(int)Integer.MAX_VALUE); 
@@ -76,9 +69,10 @@ public class Dijkstras {
 		while (!LocationNodePriorityQueue.isEmpty()){
 			//v = ExtractMin(Q)
 			Vert NodeWithMinInvarient = LocationNodePriorityQueue.poll();
+			System.out.println("Using "+NodeWithMinInvarient.getid());
 			//Add v to S
 			Visited.add(NodeWithMinInvarient.getid());
-			
+			System.out.println("Searching "+NodeWithMinInvarient.getid());
 			// for each edge e=(v,w) 
 			for( Node n : G.adjacencyList[NodeWithMinInvarient.getid()] ) {
 				//such that w does not exist in S{
@@ -86,11 +80,11 @@ public class Dijkstras {
 					continue;
 				}
 				//pi(v) + Ie < pi(w)
-				n.printNode();
+//				n.printNode();
 				int x = n.getDistance();
 				int y = NodeWithMinInvarient.getInvarient();
-				for (Object i : G.nodeInfo.keySet()) {
-					  System.out.println("key: " + i + " value: " + G.nodeInfo.get(i));
+				for (Object i : map.keySet()) {
+					  System.out.println("key: " + i + " value: " + map.get(i).getInvarient());
 					}
 				int distanceFromPredecesor = x+y;
 				System.out.println("Distance "+ x +"plus"+y);
