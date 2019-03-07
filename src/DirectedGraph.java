@@ -4,10 +4,12 @@ public class DirectedGraph {
 	private int vertices;
 	LinkedList<Node> adjacencyList[]; 
 	HashMap nodeInfo;
+	HashMap ancestry;
 	DirectedGraph(int vertices){
 		this.vertices = vertices;
 		adjacencyList = new LinkedList[vertices];
 		nodeInfo = new HashMap();
+//		ancestry = new HashMap();
         // Create a new list number of vertices
         for(int i = 0; i < vertices ; i++){ 
         	adjacencyList[i] = new LinkedList<>(); 
@@ -20,6 +22,7 @@ public class DirectedGraph {
     	
     	// After init the graph invariants are infinity
     	Node x  = new Node(node, weight, Integer.MAX_VALUE, vertices);
+//    	ancestry.put(node,vertices);
     	nodeInfo.put(vertices,Integer.MAX_VALUE);
         nodeInfo.put(node,Integer.MAX_VALUE);
     	this.adjacencyList[vertices].add(x); 
