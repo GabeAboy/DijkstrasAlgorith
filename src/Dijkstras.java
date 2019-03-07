@@ -44,32 +44,41 @@ public class Dijkstras {
 //		G.getInvarient(s);
 //		G.getInvarient(2);
 		//Initialize Q of V with pi(v) <- infinity for each node v in V
-		Comparator<Vert> LectureStartTimeComparator = new Comparator<Vert>() {
-            public int compare(Vert one, Vert two) {
+		Comparator<Node> LectureStartTimeComparator = new Comparator<Node>() {
+            public int compare(Node one, Node two) {
                 return one.getInvarient() - two.getInvarient();
             }
         };
         //Holds Min invariant 
-        PriorityQueue<Vert> LocationNodePriorityQueue = new PriorityQueue<>(LectureStartTimeComparator);   
+        PriorityQueue<Node> LocationNodePriorityQueue = new PriorityQueue<>(LectureStartTimeComparator);   
         //Holds the node values
     	Map<Integer, Vert> map = new HashMap<Integer, Vert>();
         //Initialize Priority Queue and Hashmap
     		// I use both because the pqueue does not have a find method
     		// By leveraging the hashmap, I can extract from the queue 
-        for(int i = 1; i<G.getSize(); i++) {
-        	Vert n;
-        	//pi(s) <- 0
-        	n = i==s ? new Vert(i,0) : new Vert(i,(int)Integer.MAX_VALUE); 
-        	map.put(n.NodeID,n);
-        	LocationNodePriorityQueue.add(n);
+    	//pi(s) <- 0
+        for(int i = 0; i<G.getSize(); i++) {
+        	
+        	for(Node n: G.adjacencyList[i]) {
+        		System.out.println("HERE yay"+n.getId()+" "+s);
+        		if(n.getId()==s) {
+        			System.out.println("Made it");
+        			n.setInvarient(0);
+        		}
+        		LocationNodePriorityQueue.add(n);
+        	}
         }
-		//S <- {},
+        System.out.println("STARTED TO PRINT");
+        while(!LocationNodePriorityQueue.isEmpty()) {
+        	System.out.println(LocationNodePriorityQueue.poll().getId());
+        }
+		//S <- {},ddd
         ArrayList<Integer> Visited = new ArrayList<Integer>();
         
         System.out.println("\n Reading From Queue");
 		while (!LocationNodePriorityQueue.isEmpty()){
 			//v = ExtractMin(Q)
-			Vert NodeWithMinInvarient = LocationNodePriorityQueue.poll();
+			Node NodeWithMinInvarient = LocationNodePriorityQueue.poll();
 			System.out.println("\nExtract min Node "+NodeWithMinInvarient.getid());
 			//Add v to S
 			Visited.add(NodeWithMinInvarient.getid());

@@ -4,17 +4,25 @@ import java.util.List;
 public class Node {
 	private int idInt;
 	private int distance;
-	private int shortestPath;
+//	private int shortestPath;
 	private int predecesor;
+	private int invarient;
 	private List<Integer> predecesorArray;
 
 	// TODO the ID for any Node should be an optional between string and int
-	Node(int idInt, int distance, int shortestPath, int predecesor) {
+	Node(int idInt, int distance, int invarient, int predecesor) {
 		this.idInt = idInt;
 		this.distance = distance;
-		this.shortestPath = shortestPath;
+		this.invarient = invarient;
 		this.predecesor = predecesor;
 		this.predecesorArray = new ArrayList<Integer>();
+	}
+	public int getInvarient() {
+//		System.out.println(this.invarient);
+		return this.invarient;
+	}
+	public void setInvarient(int x) {
+		this.invarient = x;
 	}
 	public void addPredecesor(int item) {
 		this.predecesorArray.add(item);
@@ -34,12 +42,12 @@ public class Node {
 	public int getDistance() {
 		return this.distance;
 	}
-	public int getShortestPath() {
-		return this.shortestPath;
-	}
-	public void setShortestPath(int shortestPath) {
-		this.shortestPath=shortestPath;
-	}
+//	public int getShortestPath() {
+//		return this.shortestPath;
+//	}
+//	public void setShortestPath(int shortestPath) {
+//		this.shortestPath=shortestPath;
+//	}
 	public void setPredecesor(int i) {
 //		String x = "";
 		this.predecesor = i;
@@ -50,7 +58,7 @@ public class Node {
 
 
 	public void printNode() {
-		System.out.println("Node: ID("+this.getId() + ") comes from("+this.getPredecesor()+") Distance(" + this.getShortestPath()+")");
+		System.out.println("Node: ID("+this.getId() + ") comes from("+this.getPredecesor()+") Distance(" + this.getInvarient()+")");
 	}
 
 }

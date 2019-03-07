@@ -14,15 +14,15 @@ public class DirectedGraph {
         } 
 	}
 	  // Adds an edge to an undirected graph 
-    public void addEdge( int vertices, int node, int weight) 
+    public void addEdge( int from, int to, int weight) 
     { 
     	 // Since graph is directed, every node vertices points to a node
     	
     	// After init the graph invariants are infinity
-    	Node x  = new Node(node, weight, Integer.MAX_VALUE, vertices);
-    	nodeInfo.put(vertices,Integer.MAX_VALUE);
-        nodeInfo.put(node,Integer.MAX_VALUE);
-    	this.adjacencyList[vertices].add(x); 
+    	Node x  = new Node(to, weight, Integer.MAX_VALUE, from);
+    	nodeInfo.put(from,Integer.MAX_VALUE);
+        nodeInfo.put(to,Integer.MAX_VALUE);
+    	this.adjacencyList[from].add(x); 
       
     }
     public int getSize() {
